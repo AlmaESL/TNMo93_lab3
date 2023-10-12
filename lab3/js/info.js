@@ -58,6 +58,9 @@ function info(data) {
 			/**
 			*  Final Task -- call the two function below.
 			*/
+
+		//print values hovered over by the mouse 
+		.on("mouseover", selectValues).on("mouseout", resetSelectedValues); 
 			
 
 		function selectValues(param) {

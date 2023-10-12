@@ -42,38 +42,38 @@ function pc(data) {
 	origDimensions = dimensions.slice(0);
 	extents = dimensions.map(function (p) { return [0, 0]; });
 
-	// Task 5.2.1 -- Drawing the Lines
-	var foreground = pc_svg.append("g").attr("class", "foreground").selectAll("path").
-		data(data).enter().append("path").attr("d", drawPath); 
+// Task 5.2.1 -- Drawing the Lines
+var foreground = pc_svg.append("g").attr("class", "foreground").selectAll("path").
+data(data).enter().append("path").attr("d", drawPath); 
 
-	//give foreground attributes of class and use all objects called path, and add attribute d to these paths
-	//when drawing them - drawPath predefined function below 
+//give foreground attributes of class and use all objects called path, and add attribute d to these paths
+//when drawing them - drawPath predefined function below 
 
-	
-	// Task 5.2.2 -- Drawing Axes
 
-	//placeholders <g></g> visible for each axis in inspector
-	var axes = pc_svg.selectAll(".dimension").data(dimensions).enter().append("g"); 
+// Task 5.2.2 -- Drawing Axes
 
-	//fill axes with variables from data set and translate them horizontally, finally each draws each axis 
-	//with previously chained attributes
-	axes.attr("class", "dimension axis").attr("transform", function(d) {return "translate(" + x(d) + ")"; }).
-		each(function(a) {d3.select(this).call(yAxis.scale(y[a])) });
-	
-	// 5.2.3 -- Appending Axes Titles
-	//set the text to middle and fill with black, move 9 units vertically, titles from read data 
-	axes.append("text").style("text-anchor", "middle").attr("y", -9).style("fill", "black").
-		text(function(t) {return t;}); //function adds text to be visible 
+//placeholders <g></g> visible for each axis in inspector
+var axes = pc_svg.selectAll(".dimension").data(dimensions).enter().append("g"); 
 
-	// 5.2.4 -- Interaction, brushing the axes
-	//add brush as an attribute to the axes and define dimensions on the brushing boxes 
-	axes.append("g").attr("class", "brush").each(function (d) { d3.select(this).call(perAxisBrush(d)); })
-		.selectAll("rect").attr("x", -8).attr("width", 10); 
+//fill axes with variables from data set and translate them horizontally, finally each draws each axis 
+//with previously chained attributes
+axes.attr("class", "dimension axis").attr("transform", function(d) {return "translate(" + x(d) + ")"; }).
+each(function(a) {d3.select(this).call(yAxis.scale(y[a])) });
 
-	// 5.2.5 -- Interaction, dragging the Axes
-	//movable axes horizontally using the mouse 
-	axes.call(d3.drag().subject(function (d) {return {x: x(d)}; }).on("start", startDrag).
-		on("drag", drag).on("end", endDrag)); //function to return new position of dragged axis 
+// 5.2.3 -- Appending Axes Titles
+//set the text to middle and fill with black, move 9 units vertically, titles from read data 
+axes.append("text").style("text-anchor", "middle").attr("y", -9).style("fill", "black").
+text(function(t) {return t;}); //function adds text to be visible 
+
+// 5.2.4 -- Interaction, brushing the axes
+//add brush as an attribute to the axes and define dimensions on the brushing boxes 
+axes.append("g").attr("class", "brush").each(function (d) { d3.select(this).call(perAxisBrush(d)); })
+.selectAll("rect").attr("x", -8).attr("width", 10); 
+
+// 5.2.5 -- Interaction, dragging the Axes
+//movable axes horizontally using the mouse 
+axes.call(d3.drag().subject(function (d) {return {x: x(d)}; }).on("start", startDrag).
+on("drag", drag).on("end", endDrag)); //function to return new position of dragged axis 
 
 	//------------------------------------------------------------------------------------->
 	/** COMPUTER EXERCISE ENDS HERE  **/

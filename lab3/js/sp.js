@@ -4,43 +4,32 @@ function labcode(data, x_var, y_var, sp_svg, tooltip) {
 
   //------------------------------------------------------------------------------------->
   /** COMPUTER EXERCISE STARTS HERE  */
- //Task 5.1.1  -- Create the x-axis
- var x=d3.scaleLinear().domain([d3.min(data, function(d) {return +d[x_var];}), 
- d3.max(data, function(d) {return +d[x_var];})]).range([0, width]);  
-
- //d3.data joins data from read input data to dom object, which is var x
- //function finds smallest and largest x values from input data 
+  //Task 5.1.1  -- Create the x-axis
+  var x = d3.scaleLinear().domain([d3.min(data, function(d) {return +d[x_var];}), 
+  d3.max(data, function(d) {return +d[x_var];})]).range([0, width/2]);  
+  //d3.data joins data from read input data to dom object, which is var x
+  //function finds smallest and largest x values from input data 
 
   //Task 5.1.2  -- Append the axes to the svg
-
-  //sp_svg = d3.select("body").append("svg").attr("width", width).attr("height", height); 
   var xAxis = sp_svg.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(x));
-  //sp_svg.append("g").call(xAxis); 
 
-  
 
   //Task 5.1.3  -- Create y-axis
   var y = d3.scaleLinear().domain([d3.min(data, function(d) {return +d[y_var];}), 
   d3.max(data, function(d) {return +d[y_var]; })]).range([height, 0]);  
-
+  
 
   // Task 5.1.4 -- Append the axis to svg
   var yAxis = sp_svg.append("g").attr("transform", "translate(0, 0)").call(d3.axisLeft(y));
-
-  //var xAxisTranslate = height/2;
-
-  //sp_svg.append("g")
- //.attr("transform", "translate(0, " + xAxisTranslate  +")").call(xAxis);
-  // Task 5.1.5 -- Append circles to svg
   
+
+  // Task 5.1.5 -- Append circles to svg
   var myCircles = sp_svg.append("g").selectAll("circle").data(data).enter().append("circle").
   attr("cx", function (d) { return x(d[x_var]); } )
   .attr("cy", function (d) { return y(d[y_var]); } )
   .attr("r", 6)
   .style("fill", "darkturquoise")
   .style("opacity", 0.3);
-
-  // Task 5.1.6 -- Append circles to svg
 
 
   // Task 5.1.7 -- Adding hovering
